@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel ="stylesheet" href="/css/registerStore.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel ="stylesheet" href="/css/sidebar.css">
+    <script src="/js/addStore.js"></script>
+    <script src="/js/addStoreOtherFunction.js"></script>
+    <style type="text/css">
+
+        .drag{
+            position:relative;
+            cursor:hand;
+            z-index: 100;
+        }
+
+    </style>
+</head>
+<!------ Include the above in your HEAD tag ---------->
+<body>
+<div class="section" id="section1">
+    <div class="container">
+        <div class="row">
+            <h2>당신의 가게를 등록하세요!</h2>
+
+            <form class="form-horizontal" action="/addStore" method="post">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>가게 등록</legend>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">사업자 이름</label>
+                        <div class="col-md-4">
+                            <input name="businessName" id="businessName" placeholder="사용자 이름" class="form-control input-md" required="" type="text">
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">가게 상호명</label>
+                        <div class="col-md-4">
+                            <input name="storeName" id="storeName"placeholder="가게 상호명" class="form-control input-md" required="" type="text">
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">유형</label>
+                        <div class="col-md-4">
+                            <select class="password_confirm_question" name="type" id="type">
+                                <option value="cafe">카페</option>
+                                <option value="restaurant">음식점</option>
+                                <option value="bar">술집</option>
+                                <option value="etc">기타</option>
+                            </select>
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">주소</label>
+                        <div class="col-md-4">
+                            <input type="text" id="address_kakao"  class="form-control input-md" name="address" readonly /><br>
+                            <input type="text" id="detailAddress" class="form-control input-md" name="detailAddress" placeholder="상세주소" />
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">번호</label>
+                        <div class="col-md-4">
+                            <input name="textinput" id="phone" placeholder="번호" class="form-control input-md" required="" type="text">
+                            <span class="help-block"> </span>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">가게 소개</label>
+                        <div class="col-md-4">
+                            <input id="textinput" name="phone" placeholder="가게 소개글" class="form-control input-md" required="" type="text">
+                        </div>
+                    </div>
+
+
+                </fieldset>
+            </form>
+            <br><br>
+            <div class="goToNextIndex">정보를 다 입력하셨으면 스크롤을 내려 가게 배치도를 완성해주세요!</div>
+        </div>
+    </div>
+</div>
+<div class="section" id="section2">
+    <div class="canvasGrid">
+        <div class ="context">
+            <div class="menu">
+                <label for="expand-menu"><div>메뉴</div></label><input type="checkbox" id="expand-menu" name="expand-menu">
+                <ul>
+                    <li><a id="2table" class="item" name="2table" onclick="plus();"><img src="/image/2table.png "width="30" height="30"><div>2인테이블</div></a></li>
+                    <li><a id="4table" class="item" name="4table" onclick="plus();"><img src="/image/4table.png" width="30" height="30"> <div>4인테이블</div></a></li>
+                    <li><a id="counter" class="item"><img src="/image/colorCounter.png" width="30" height="30"><div>카운터</div></a></li>
+                    <li><a id="gate" class="item"><img src="/image/exit.png" width="30" height="30"><div>출입문</div></a></li>
+                    <li><a id="toilet" class="item"><img src="/image/restroom.png" width="30" height="30"><div>화장실</div></a></li>
+                    <li><a id="position" class="item"><img src="/image/colorPosition.png" width="30" height="30"> <div>현위치</div></a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="canvas">
+            <div class="introduce">
+                메뉴바에 있는 가구들을 클릭 후 <br>
+                드래그앤 드랍으로 손님들에게 보여줄 가게 배치도를 꾸며주세요!!
+            </div>
+            <div class="seat">
+                총 좌석 수 : <span name="totalSeat" id="seat" style="background-color : yellow">0</span><br>
+                <span style="color : red">2인용 테이블 / 4인용 테이블 모두 1좌석으로 계산됩니다.<br> 만약 테이블을 삭제하고 싶으시면 해당 테이블을 우클릭하시면 됩니다!</span>
+            </div>
+        </div>
+    </div>
+    <div class="complete">
+        <button type = "button" id="complete">완료</button>
+    </div>
+</div>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+</body>
+</html>

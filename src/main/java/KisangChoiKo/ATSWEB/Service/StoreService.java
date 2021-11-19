@@ -4,6 +4,7 @@ package KisangChoiKo.ATSWEB.Service;
 import KisangChoiKo.ATSWEB.Domain.Store;
 import KisangChoiKo.ATSWEB.repository.StoreRepository;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Transactional

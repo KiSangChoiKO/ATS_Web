@@ -1,4 +1,4 @@
-package KisangChoiKo.ATSWEB.StoreConfig;
+package KisangChoiKo.ATSWEB.Config;
 
 
 import KisangChoiKo.ATSWEB.Service.StoreService;
