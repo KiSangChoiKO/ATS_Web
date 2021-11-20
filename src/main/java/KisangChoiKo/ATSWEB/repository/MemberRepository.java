@@ -1,7 +1,7 @@
 package KisangChoiKo.ATSWEB.repository;
 
 import KisangChoiKo.ATSWEB.Domain.Member;
-import org.springframework.stereotype.Repository;
+
 
 import java.util.Optional;
 

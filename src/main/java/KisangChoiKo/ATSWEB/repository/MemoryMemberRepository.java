@@ -7,6 +7,7 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
+
 import javax.persistence.EntityManager;
 
 import java.util.Optional;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 public class MemoryMemberRepository implements MemberRepository{
     private final EntityManager em;
-    long sequence = 0L;
+
     public static final String Collection_member = "member";
 
     public MemoryMemberRepository(EntityManager em) {
@@ -38,5 +39,4 @@ public class MemoryMemberRepository implements MemberRepository{
         DocumentSnapshot documentSnapshot = apiFuture.get();
         return Optional.ofNullable(documentSnapshot.toObject(Member.class));
     }
-
 }
