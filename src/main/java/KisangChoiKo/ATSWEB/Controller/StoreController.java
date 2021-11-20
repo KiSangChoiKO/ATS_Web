@@ -2,6 +2,7 @@ package KisangChoiKo.ATSWEB.Controller;
 
 import KisangChoiKo.ATSWEB.Domain.Member;
 import KisangChoiKo.ATSWEB.Domain.Store;
+import KisangChoiKo.ATSWEB.Form.positionParsing;
 import KisangChoiKo.ATSWEB.Service.StoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class StoreController {
@@ -57,27 +60,27 @@ public class StoreController {
 
         return "redirect:/mypage";
     }
-//
-//    @GetMapping("/viewStore")
-//    public String viewStore(HttpServletRequest request, Model model) throws Exception {
-//        HttpSession session = request.getSession();
-//        Member member = (Member) session.getAttribute("member");
-//        Optional<Store> valueOfStore = storeService.findStore(member.getId());
-//
-//        model.addAttribute("storeName", valueOfStore.get().getStoreName());
-//        model.addAttribute("businessName", valueOfStore.get().getBusinessName());
-//        model.addAttribute("address", valueOfStore.get().getAddress());
-//        model.addAttribute("phone", valueOfStore.get().getPhone());
-//        model.addAttribute("introduce", valueOfStore.get().getIntroduce());
-//        List<String> position =valueOfStore.get().getPositionIndex();
-//        ArrayList<positionParsing> positionParsingArrayList = new ArrayList<>();
-//        for(int i=0; i<position.size(); i++){
-//
-//            String[] idxPosition = position.get(i).split(",");
-//
-//            positionParsingArrayList.add(new positionParsing(idxPosition[0],Integer.parseInt(idxPosition[1]),Integer.parseInt(idxPosition[2]),Integer.parseInt(idxPosition[3])));
-//        }
-//        model.addAttribute("positionList",positionParsingArrayList);
-//        return "viewStore";
-//    }
+
+    @GetMapping("/viewStore")
+    public String viewStore(HttpServletRequest request, Model model) throws Exception {
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("member");
+        Optional<Store> valueOfStore = storeService.findStore(member.getId());
+
+        model.addAttribute("storeName", valueOfStore.get().getStoreName());
+        model.addAttribute("businessName", valueOfStore.get().getBusinessName());
+        model.addAttribute("address", valueOfStore.get().getAddress());
+        model.addAttribute("phone", valueOfStore.get().getPhone());
+        model.addAttribute("introduce", valueOfStore.get().getIntroduce());
+        List<String> position =valueOfStore.get().getPositionIndex();
+        ArrayList<positionParsing> positionParsingArrayList = new ArrayList<>();
+        for(int i=0; i<position.size(); i++){
+
+            String[] idxPosition = position.get(i).split(",");
+
+            positionParsingArrayList.add(new positionParsing(idxPosition[0],Integer.parseInt(idxPosition[1]),Integer.parseInt(idxPosition[2]),Integer.parseInt(idxPosition[3])));
+        }
+        model.addAttribute("positionList",positionParsingArrayList);
+        return "viewStore";
+    }
 }
