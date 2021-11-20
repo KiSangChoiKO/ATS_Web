@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -60,6 +61,7 @@ public class StoreController {
 
         return "redirect:/mypage";
     }
+
     @GetMapping("/viewStore")
     public String viewStore(HttpServletRequest request, Model model) throws Exception {
         HttpSession session = request.getSession();
@@ -71,6 +73,10 @@ public class StoreController {
         model.addAttribute("address", valueOfStore.get().getAddress());
         model.addAttribute("phone", valueOfStore.get().getPhone());
         model.addAttribute("introduce", valueOfStore.get().getIntroduce());
+        model.addAttribute("id", valueOfStore.get().getId());
+        model.addAttribute("totalSeat", valueOfStore.get().getTotalSeat());
+        model.addAttribute("type", valueOfStore.get().getType());
+        model.addAttribute("detailAddress", valueOfStore.get().getDetailAddress());
         List<String> position =valueOfStore.get().getPositionIndex();
         ArrayList<positionParsing> positionParsingArrayList = new ArrayList<>();
         for(int i=0; i<position.size(); i++){
@@ -83,4 +89,28 @@ public class StoreController {
         return "viewStore";
     }
 
+    @RequestMapping(value = "/viewStore", method = { RequestMethod.POST })
+    public String change(
+            @RequestParam("totalSeat")long totalSeat , @RequestParam("positionIndex") List<String> positionIndex,
+            @RequestParam("businessName") String businessName, @RequestParam("storeName") String storeName,
+            @RequestParam("type") String type, @RequestParam("address") String address,
+            @RequestParam("detailAddress") String detailAddress,
+            @RequestParam("phone") String phone, @RequestParam("introduce") String introduce, HttpServletRequest request
+            , @RequestParam("id") String id) throws  Exception{
+
+        Store store = new Store();
+        store.setId(id);
+        store.setBusinessName(businessName);
+        store.setStoreName(storeName);
+        store.setType(type);
+        store.setAddress(address);
+        store.setDetailAddress(detailAddress);
+        store.setPhone(phone);
+        store.setTotalSeat(totalSeat);
+        store.setIntroduce(introduce);
+        store.setPositionIndex(positionIndex);
+
+        storeService.register(store);
+        return "viewStore";
+    }
 }
