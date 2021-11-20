@@ -7,9 +7,7 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
-
 import javax.persistence.EntityManager;
-
 import java.util.Optional;
 
 
@@ -32,7 +30,7 @@ public class MemoryMemberRepository implements MemberRepository{
     }
 
     @Override
-    public Optional<Member> getDetailMember(String id) throws Exception{
+    public Optional<Member> getDetailMember(String id) throws Exception {
         Firestore firestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = firestore.collection(Collection_member).document(id);
         ApiFuture<DocumentSnapshot> apiFuture = documentReference.get();
@@ -40,3 +38,4 @@ public class MemoryMemberRepository implements MemberRepository{
         return Optional.ofNullable(documentSnapshot.toObject(Member.class));
     }
 }
+

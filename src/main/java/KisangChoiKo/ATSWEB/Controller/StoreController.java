@@ -60,7 +60,6 @@ public class StoreController {
 
         return "redirect:/mypage";
     }
-
     @GetMapping("/viewStore")
     public String viewStore(HttpServletRequest request, Model model) throws Exception {
         HttpSession session = request.getSession();
@@ -83,4 +82,5 @@ public class StoreController {
         model.addAttribute("positionList",positionParsingArrayList);
         return "viewStore";
     }
+
 }
